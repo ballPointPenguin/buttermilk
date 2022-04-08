@@ -6,6 +6,12 @@ defmodule Buttermilk do
   """
 
   def start(name) do
-    {:ok, _pid} = Buttermilk.Server.start_link(%{name: name})
+    {:ok, pid} = Buttermilk.Server.start_link(%{name: name})
+
+    ref = Process.monitor(pid)
+
+    receive do
+      {:DOWN, ^ref, _, _, _} -> :ok
+    end
   end
 end
