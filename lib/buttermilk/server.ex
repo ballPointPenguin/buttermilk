@@ -5,8 +5,8 @@ defmodule Buttermilk.Server do
 
   alias ExTermbox.Bindings, as: Termbox
   alias ExTermbox.Cell
-  alias ExTermbox.EventManager
   alias ExTermbox.Event
+  alias ExTermbox.EventManager
   alias ExTermbox.Position
 
   require Logger
@@ -51,6 +51,7 @@ defmodule Buttermilk.Server do
     {:noreply, state}
   end
 
+  @impl GenServer
   def handle_info({:event, %Event{key: key}}, %{line_buffer: line_buffer} = state)
       when key in @delete_keys do
     {:noreply, %{state | line_buffer: String.slice(line_buffer, 0..-2)},
@@ -62,21 +63,25 @@ defmodule Buttermilk.Server do
     {:stop, :normal, state}
   end
 
+  @impl GenServer
   def handle_info({:event, %Event{key: @enter}}, %{line_buffer: line_buffer} = state) do
-    # TODO Process commands here
+    # Process commands here
     {:noreply, %{state | response: "Received " <> line_buffer, line_buffer: ""},
      {:continue, :draw_screen}}
   end
 
+  @impl GenServer
   def handle_info({:event, %Event{key: @spacebar}}, %{line_buffer: line_buffer} = state) do
     {:noreply, %{state | line_buffer: line_buffer <> " "}, {:continue, :draw_screen}}
   end
 
+  @impl GenServer
   def handle_info({:event, %Event{ch: char}}, %{line_buffer: line_buffer} = state)
       when char > 0 do
     {:noreply, %{state | line_buffer: line_buffer <> <<char::utf8>>}, {:continue, :draw_screen}}
   end
 
+  @impl GenServer
   def handle_info(_, state) do
     {:noreply, state}
   end
