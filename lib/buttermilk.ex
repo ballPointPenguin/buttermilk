@@ -1,18 +1,11 @@
 defmodule Buttermilk do
   @moduledoc """
   Documentation for `Buttermilk`.
+  butTERMilk. Get it?
+  Example borrowed from https://github.com/ndreynolds/ex_termbox/blob/master/examples/hello_world.exs
   """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Buttermilk.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def start(name) do
+    {:ok, _pid} = Buttermilk.Server.start_link(%{name: name})
   end
 end
