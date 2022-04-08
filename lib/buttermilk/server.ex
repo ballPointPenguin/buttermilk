@@ -14,6 +14,12 @@ defmodule Buttermilk.Server do
   @spacebar key(:space)
   @enter key(:enter)
 
+  @delete_keys [
+    key(:delete),
+    key(:backspace),
+    key(:backspace2)
+  ]
+
   @initial_state %{response: "", line_buffer: ""}
 
   def start_link(%{name: name} = state) do
@@ -43,6 +49,12 @@ defmodule Buttermilk.Server do
   def handle_continue(:draw_screen, state) do
     draw_screen(state)
     {:noreply, state}
+  end
+
+  def handle_info({:event, %Event{key: key}}, %{line_buffer: line_buffer} = state)
+      when key in @delete_keys do
+    {:noreply, %{state | line_buffer: String.slice(line_buffer, 0..-2)},
+     {:continue, :draw_screen}}
   end
 
   @impl GenServer
