@@ -1,21 +1,15 @@
 # Buttermilk
 
-**TODO: Add description**
+Doing some interactive things with the terminal and Elixir.
 
-## Installation
+but**TERM**ilk, get it?
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `buttermilk` to your list of dependencies in `mix.exs`:
+Making use of https://github.com/ndreynolds/ex_termbox
 
-```elixir
-def deps do
-  [
-    {:buttermilk, "~> 0.1.0"}
-  ]
-end
-```
+Inspired by
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/buttermilk>.
+https://github.com/fireproofsocks/xventure
 
+and
+
+https://github.com/ndreynolds/ex_termbox/blob/master/examples/hello_world.exs
